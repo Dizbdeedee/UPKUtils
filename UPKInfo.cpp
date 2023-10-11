@@ -74,7 +74,7 @@ bool UPKInfo::Read(std::istream& stream)
     stream.read(reinterpret_cast<char*>(&tmpVer), 4);
     Summary.Version = tmpVer % (1 << 16);
     Summary.LicenseeVersion = tmpVer >> 16;
-    if (Summary.Version != VER_XCOM && Summary.Version != VER_BATMAN && Summary.Version != VER_BATMAN_CITY)
+    if (Summary.Version != VER_XCOM && Summary.Version != VER_BATMAN && Summary.Version != VER_BATMAN_CITY && Summary.Version != VER_GIGANTIC)
     {
         ReadError = UPKReadErrors::BadVersion;
         return false;
@@ -93,6 +93,10 @@ bool UPKInfo::Read(std::istream& stream)
     }
     stream.read(reinterpret_cast<char*>(&Summary.PackageFlags), 4);
     Summary.NameCountOffset = stream.tellg();
+    if (Summary.Version == VER_GIGANTIC) 
+    {
+        stream.seekg(Summary.NameCountOffset + 4);
+    }
     stream.read(reinterpret_cast<char*>(&Summary.NameCount), 4);
     stream.read(reinterpret_cast<char*>(&Summary.NameOffset), 4);
     stream.read(reinterpret_cast<char*>(&Summary.ExportCount), 4);

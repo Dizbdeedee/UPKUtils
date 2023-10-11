@@ -14,6 +14,7 @@
 #define VER_XCOM 845
 #define VER_BATMAN 576
 #define VER_BATMAN_CITY 805
+#define VER_GIGANTIC 867
 
 enum class UPKReadErrors
 {
